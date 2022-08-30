@@ -1,0 +1,12 @@
+---
+
+# default packages
+cron_pkgs:
+ - cronie
+
+# service
+cron_service: 'crond'
+
+
+# cron_jobs. If not defined, the role will not do anything
+

@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  author: Mikko Hakala
+  description: Manage ansible cron task and allow integration to git
+  company: Aalto University
+  license: MIT
+  min_ansible_version: 2.9
+  platforms:
+  - name: RedHat
+    versions:
+    - all
+  galaxy_tags:
+   - clustering
+   - system
+   - hpc
+dependencies: []

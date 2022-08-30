@@ -1,0 +1,25 @@
+---
+
+- name: install pkgs
+  ansible.builtin.package:
+    name: "{{ cron_pkgs }}"
+    state: present
+
+- name: manage service
+  ansible.builtin.service:
+    name: "{{ cron_service }}"
+    state: started
+    enabled: yes
+
+- name: add cron jobs
+  ansible.builtin.cron:
+    name: "{{ item.name }}"
+    minute: "{{ item.minute }}"
+    hour: "{{ item.hour }}"
+    day: "{{ item.day | default('*') }}"
+    month: "{{ item.month | default('*') }}"
+    weekday: "{{ item.weekday | default('*') }}"
+    job: "{{ item.job }}"
+    state: "{{ item.state | default('present') }}"
+    user: "{{ item.user | default('root') }}"
+  loop: "{{ cron_jobs }}"

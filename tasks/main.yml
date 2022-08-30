@@ -1,0 +1,5 @@
+---
+
+# currently tested for RedHat variants
+- include_tasks: redhat.yml
+  when: cron_jobs is defined and ansible_os_family == "RedHat"
