@@ -9,4 +9,12 @@ cron_service: 'crond'
 
 
 # cron_jobs. If not defined, the role will not do anything
+# cron_jobs:
+#   test:
+#     minute: 1
+#     hour: 1
+#     job: '/bin/test'
+#     etc: 'yes'  (if defined=> /etc/cron.d, else=> crontab)
 
+# if using git, the default path to install repos to be used with crontab
+cron_jobs_dir: '/root'

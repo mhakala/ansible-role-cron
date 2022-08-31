@@ -11,6 +11,17 @@
     state: started
     enabled: yes
 
+- name: Install scripts from git
+  git:
+    repo: "{{ item.value.repo }}"
+    dest: "{{ item.value.dest | default(cron_jobs_dir) }}/{{ item.key }}"
+    version: "{{ item.value.version | default('master') }}"
+    umask: "{{ item.value.umask | default('022') }}"
+  when: install_jobs is defined
+  loop: "{{ install_jobs | default({}) | dict2items }}"
+
+
+# if item.etc is defined, install under /etc/cron.d. If not, use user crontab
 - name: add cron jobs
   ansible.builtin.cron:
     name: "{{ item.name }}"
@@ -22,4 +33,5 @@
     job: "{{ item.job }}"
     state: "{{ item.state | default('present') }}"
     user: "{{ item.user | default('root') }}"
+    cron_file: "{{ item.name if item.etc is defined else omit }}"
   loop: "{{ cron_jobs }}"
